@@ -2,11 +2,12 @@ package com.softwaremind;
 
 import java.util.List;
 
-import com.softwaremind.model.Animal;
-import com.softwaremind.model.LivingBeing;
-import com.softwaremind.model.Plant;
+import com.softwaremind.model.living.Animal;
+import com.softwaremind.model.living.LivingBeing;
+import com.softwaremind.model.living.Plant;
 
 public class InstanceofTypePatterns {
+
   public static void main(String[] args) {
     Animal dog = new Animal("woof");
     Animal cat = new Animal("meow");
@@ -17,42 +18,59 @@ public class InstanceofTypePatterns {
 
     dog.move(); //fine - dog is assigned to Animal and Animal has move()
 
-    var firstLivingBeing = livingBeings.getFirst();
+    var firstBeing = livingBeings.getFirst();
 
-    System.out.println("dog and firstLivingBeing are the same: " + (firstLivingBeing == dog));
-//    firstLivingBeing.move(); //compile error - firstLivingBeing is of type LivingBeing, which does not have move()
+    System.out.println("dog and firstBeing are the same: " + (firstBeing == dog));
+    //    firstBeing.move(); //compile error - someBeing is of type LivingBeing, which does not have move()
 
-    //pre Java 17
-    if (firstLivingBeing instanceof Animal) {
-      Animal animal1 = (Animal) firstLivingBeing;
-      animal1.move();
-      animal1.metabolize();
+    for (LivingBeing someBeing : livingBeings) {
+      System.out.println("Processing: " + someBeing.getClass().getSimpleName());
+      processWithoutPattern(someBeing);
+      processWithPattern(someBeing);
+      System.out.println("=====================================\n");
+    }
+  }
+
+  private static void processWithoutPattern(LivingBeing someBeing) {
+    System.out.println("* Without pattern matching (pre Java 17) *");
+
+    System.out.println("* Unsafe cast *");
+    Animal hardCastAnimal = (Animal) someBeing;
+    hardCastAnimal.move();
+
+    if (someBeing instanceof Animal) {
+      System.out.println("* Safe(r) cast *");
+      Animal animal = (Animal) someBeing;
+      animal.move();
     }
 
-    //unsafe
-    Animal animal2 = (Animal) firstLivingBeing;
-    animal2.move();
-    animal2.metabolize();
+    //can't do this:
+    //    if (someBeing instanceof Animal && "woof".equals(someBeing).getSound()) {
+    //      System.out.println("It's a dog!");
+    //      Animal animal1 = (Animal) someBeing;
+    //      animal1.move();
+    //      animal1.metabolize();
+    //    }
+  }
 
-    //TYPE PATTERNS
+  private static void processWithPattern(LivingBeing someBeing) {
+    System.out.println("* With pattern matching (Java 17+) *");
 
-    //Java 17+
-    if (firstLivingBeing instanceof Animal animal3) {
-      animal3.move();
-      animal3.metabolize();
+    if (someBeing instanceof Animal animal) {
+      System.out.println("* Type check + cast + assignment to local variable *");
+      animal.move();
     }
 
-    CharSequence text = "Hello";
-//    text.toLowerCase(); //CharSequence does not have toLowerCase() method
-    if (text instanceof String str && "hello".equals(str.toLowerCase())) {
-      System.out.println("Hello indeed!");
-    } else {
-//      str.toLowerCase(); //compile error - str is not in scope here
-      System.out.println("Not hello )-:<");
+    if (someBeing instanceof Animal animal && "woof".equals(animal.getSound())) {
+      System.out.println("* Typecast variable is immediately available in scope *");
+      System.out.println("It's a dog!");
+      animal.move();
     }
-//    if (text instanceof String str || "hello".equals(str.toLowerCase())) { //compile error - str is not in scope here
-//      System.out.println("Hello or not");
-//      str.toLowerCase(); //compile error - str is not in scope here
-//    }
+
+    //    if (someBeing instanceof Animal animal || "woof".equals(animal.getSound())) {
+    //      System.out.println("It might be a dog 🤔");
+    //      animal.move();
+    //      animal.metabolize();
+    //    }
   }
 }

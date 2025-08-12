@@ -1,4 +1,4 @@
-package com.softwaremind.model;
+package com.softwaremind.model.living;
 
 public class Animal implements LivingBeing {
   private final String sound;

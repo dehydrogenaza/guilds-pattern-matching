@@ -1,4 +1,4 @@
-package com.softwaremind.model;
+package com.softwaremind.model.living;
 
 public interface LivingBeing {
   default void metabolize() {
