@@ -34,22 +34,22 @@ public class SwitchPatterns {
 
   private static void processWithPattern(Object item) {
     switch (item) {
+      case null -> System.out.println("I'm null 👻"); //without this case, switch(null) throws a NullPointerException
       case Animal animal -> animal.move();
       case Plant plant -> plant.photosynthesize();
       case LivingBeing being -> being.metabolize(); //this has to be after Animal/Plant due to case dominance
-      case null -> System.out.println("I'm null 👻"); //without this case, switch(null) throws a NullPointerException
       default -> System.out.println("Look mom, I'm an " + item.getClass().getSimpleName() + "!");
     }
   }
 
   private static void processWithGuardedPattern(Object item) {
     switch (item) {
+      case null -> System.out.println("I'm null 👻"); //without this case, switch(null) throws a NullPointerException
       case Animal a
           when "woof".equalsIgnoreCase(a.getSound()) -> System.out.println("It's a dog!");
       case Animal a
           when "meow".equalsIgnoreCase(a.getSound()) -> System.out.println("It's a cat!");
       case Animal _ -> System.out.println("It's an animal, but not a dog or a cat!");
-      case null -> System.out.println("I'm null 👻"); //without this case, switch(null) throws a NullPointerException
       default -> System.out.println("Not an animal!");
     }
   }

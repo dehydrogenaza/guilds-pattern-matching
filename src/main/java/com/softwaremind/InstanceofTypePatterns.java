@@ -25,7 +25,7 @@ public class InstanceofTypePatterns {
 
     for (LivingBeing someBeing : livingBeings) {
       System.out.println("Processing: " + someBeing.getClass().getSimpleName());
-      processWithoutPattern(someBeing);
+//      processWithoutPattern(someBeing);
       processWithPattern(someBeing);
       System.out.println("=====================================\n");
     }
@@ -52,13 +52,13 @@ public class InstanceofTypePatterns {
       animal.move();
     }
 
-    //can't do this:
-    //    if (someBeing instanceof Animal && "woof".equals(someBeing).getSound()) {
-    //      System.out.println("It's a dog!");
-    //      Animal animal1 = (Animal) someBeing;
-    //      animal1.move();
-    //      animal1.metabolize();
-    //    }
+//    can't do this:
+//        if (someBeing instanceof Animal && "woof".equals(someBeing).getSound()) {
+//          System.out.println("It's a dog!");
+//          Animal animal1 = (Animal) someBeing;
+//          animal1.move();
+//          animal1.metabolize();
+//        }
   }
 
   private static void processWithPattern(LivingBeing someBeing) {

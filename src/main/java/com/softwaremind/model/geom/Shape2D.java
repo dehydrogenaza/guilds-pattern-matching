@@ -1,6 +1,6 @@
 package com.softwaremind.model.geom;
 
-public interface Shape2D {
+public sealed interface Shape2D permits Circle, PizzaSlice, Rectangle, Square {
   double calculateArea();
   double calculatePerimeter();
 }

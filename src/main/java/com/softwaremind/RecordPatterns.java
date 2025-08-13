@@ -47,7 +47,7 @@ public class RecordPatterns {
       case Square(var topLeft, var sideLength)
           -> "It's a Square with top-left corner at " + topLeft + " and side length " + sideLength;
 
-      //nested deconstruction
+      //nested destructuring
       case Rectangle(Point(var topLeftX, var topLeftY), Point(var bottomRightX, var bottomRightY))
           -> "It's a Rectangle with top-left corner at (" + topLeftX + ", " + topLeftY
              + ") and bottom-right corner at (" + bottomRightX + ", " + bottomRightY + ")";
@@ -61,8 +61,9 @@ public class RecordPatterns {
       //ignore components you don't care about with _
       case PizzaSlice(_, var radius, _) -> "It's just a PizzaSlice, not that big, radius " + radius;
 
-      //how to get rid of this if we know the full list of items we will process?
-      default -> "I don't know what this is, rigged game.";
+      //how to get rid of this if we know the full list of types we should process?
+      //answer: sealed interfaces
+//      default -> "I don't know what this is, rigged game.";
     };
   }
 }
