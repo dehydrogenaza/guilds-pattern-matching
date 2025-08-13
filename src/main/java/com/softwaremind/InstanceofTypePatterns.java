@@ -29,6 +29,14 @@ public class InstanceofTypePatterns {
       processWithPattern(someBeing);
       System.out.println("=====================================\n");
     }
+
+    Object obj = List.of("a", "b", "c");
+//    if (obj instanceof List<?> objects) {
+//      //we have to use wildcard type List<?>, due to type erasure
+//    }
+//    if (obj instanceof List<String> strings) {
+//      //will not compile, the generic type is not available at runtime and therefore cannot be safely cast
+//    }
   }
 
   private static void processWithoutPattern(LivingBeing someBeing) {
